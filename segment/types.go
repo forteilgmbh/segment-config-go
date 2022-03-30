@@ -294,10 +294,10 @@ type TrackingPlan struct {
 
 // RuleSet contains a set of different rules about the tracking plan
 type RuleSet struct {
-	Global   Rules   `json:"global,omitempty"`
+	Global   *Rules  `json:"global,omitempty"`
 	Events   []Event `json:"events,omitempty"`
-	Identify Rules   `json:"identify,omitempty"`
-	Group    Rules   `json:"group,omitempty"`
+	Identify *Rules  `json:"identify,omitempty"`
+	Group    *Rules  `json:"group,omitempty"`
 }
 
 // Rules contains information about a specific type of rules of the tracking plan
