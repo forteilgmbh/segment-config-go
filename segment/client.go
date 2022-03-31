@@ -23,7 +23,7 @@ type Client struct {
 	baseURL     string
 	apiVersion  string
 	accessToken string
-	workspace   string
+	Workspace   string
 	client      *http.Client
 }
 
@@ -33,7 +33,7 @@ func NewClient(accessToken string, workspace string) *Client {
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
 		accessToken: accessToken,
-		workspace:   workspace,
+		Workspace:   workspace,
 		client:      http.DefaultClient,
 	}
 }

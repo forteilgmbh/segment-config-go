@@ -12,7 +12,7 @@ import (
 func (c *Client) ListSources() (Sources, error) {
 	var s Sources
 	data, err := c.doRequest(http.MethodGet,
-		fmt.Sprintf("%s/%s/%s", WorkspacesEndpoint, c.workspace, SourceEndpoint),
+		fmt.Sprintf("%s/%s/%s", WorkspacesEndpoint, c.Workspace, SourceEndpoint),
 		nil)
 	if err != nil {
 		return s, err
@@ -30,7 +30,7 @@ func (c *Client) GetSource(srcName string) (Source, error) {
 	var s Source
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName),
 		nil)
 	if err != nil {
 		return s, err
@@ -47,7 +47,7 @@ func (c *Client) GetSource(srcName string) (Source, error) {
 func (c *Client) CreateSource(srcName string, catName string) (Source, error) {
 	var s Source
 	srcFullName := fmt.Sprintf("%s/%s/%s/%s",
-		WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName)
+		WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName)
 	src := Source{
 		Name:        srcFullName,
 		CatalogName: catName,
@@ -55,7 +55,7 @@ func (c *Client) CreateSource(srcName string, catName string) (Source, error) {
 	req := sourceCreateRequest{src}
 	data, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint),
 		req)
 	if err != nil {
 		return s, err
@@ -72,7 +72,7 @@ func (c *Client) CreateSource(srcName string, catName string) (Source, error) {
 func (c *Client) DeleteSource(srcName string) error {
 	_, err := c.doRequest(http.MethodDelete,
 		fmt.Sprintf("%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName),
 		nil)
 	if err != nil {
 		return err
@@ -86,7 +86,7 @@ func (c *Client) DeleteSource(srcName string) error {
 func (c *Client) GetSourceConfig(srcName string) (SourceConfig, error) {
 	var result SourceConfig
 
-	response, err := c.doRequest(http.MethodGet, fmt.Sprintf("%s/%s/%s/%s/schema-config", WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName), nil)
+	response, err := c.doRequest(http.MethodGet, fmt.Sprintf("%s/%s/%s/%s/schema-config", WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName), nil)
 	if err != nil {
 		return result, err
 	}
@@ -123,7 +123,7 @@ func (c *Client) UpdateSourceConfig(srcName string, config SourceConfig) (Source
 		}},
 	}
 
-	response, err := c.doRequest(http.MethodPatch, fmt.Sprintf("%s/%s/%s/%s/schema-config", WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName), req)
+	response, err := c.doRequest(http.MethodPatch, fmt.Sprintf("%s/%s/%s/%s/schema-config", WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName), req)
 	if err != nil {
 		return result, err
 	}

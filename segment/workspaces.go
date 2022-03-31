@@ -11,7 +11,7 @@ import (
 // GetWorkspace returns information about a workspace
 func (c *Client) GetWorkspace() (Workspace, error) {
 	var w Workspace
-	data, err := c.doRequest(http.MethodGet, fmt.Sprintf("%s/%s", WorkspacesEndpoint, c.workspace), nil)
+	data, err := c.doRequest(http.MethodGet, fmt.Sprintf("%s/%s", WorkspacesEndpoint, c.Workspace), nil)
 	if err != nil {
 		return w, err
 	}

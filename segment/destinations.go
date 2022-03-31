@@ -13,7 +13,7 @@ func (c *Client) ListDestinations(srcName string) (Destinations, error) {
 	var d Destinations
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint),
 		nil)
 	if err != nil {
 		return d, err
@@ -31,7 +31,7 @@ func (c *Client) GetDestination(srcName string, destName string) (Destination, e
 	var d Destination
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destName),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destName),
 		nil)
 	if err != nil {
 		return d, err
@@ -48,7 +48,7 @@ func (c *Client) GetDestination(srcName string, destName string) (Destination, e
 func (c *Client) CreateDestination(srcName string, destName string, connMode string, enabled bool, configs []DestinationConfig) (Destination, error) {
 	var d Destination
 	destFullName := fmt.Sprintf("%s/%s/%s/%s/%s/%s",
-		WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destName)
+		WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destName)
 	dest := Destination{
 		Name:           destFullName,
 		ConnectionMode: connMode,
@@ -58,7 +58,7 @@ func (c *Client) CreateDestination(srcName string, destName string, connMode str
 	req := destinationCreateRequest{dest}
 	data, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint),
 		req)
 	if err != nil {
 		return d, err
@@ -75,7 +75,7 @@ func (c *Client) CreateDestination(srcName string, destName string, connMode str
 func (c *Client) DeleteDestination(srcName string, destName string) error {
 	_, err := c.doRequest(http.MethodDelete,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destName),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destName),
 		nil)
 	if err != nil {
 		return err
@@ -88,7 +88,7 @@ func (c *Client) DeleteDestination(srcName string, destName string) error {
 func (c *Client) UpdateDestination(srcName string, destName string, enabled bool, configs []DestinationConfig) (Destination, error) {
 	var d Destination
 	destFullName := fmt.Sprintf("%s/%s/%s/%s/%s/%s",
-		WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destName)
+		WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destName)
 	dest := Destination{
 		Name:    destFullName,
 		Enabled: enabled,

@@ -15,7 +15,7 @@ func (c *Client) ListDestinationFilters(srcName string, destinationName string) 
 	var d destinationFiltersListResponse
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint),
 		nil)
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func (c *Client) ListDestinationFilters(srcName string, destinationName string) 
 func (c *Client) CreateDestinationFilter(srcName string, destinationName string, filter DestinationFilter) (*DestinationFilter, error) {
 	data, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint),
 		destinationFilterCRURequest{Filter: filter, UpdateMask: updateMask})
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (c *Client) UpdateDestinationFilter(srcName string, destinationName string,
 func (c *Client) GetDestinationFilter(srcName string, destinationName string, filterId string) (*DestinationFilter, error) {
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint, filterId),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint, filterId),
 		nil)
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func (c *Client) GetDestinationFilter(srcName string, destinationName string, fi
 func (c *Client) DeleteDestinationFilter(srcName string, destinationName string, filterId string) error {
 	_, err := c.doRequest(http.MethodDelete,
 		fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s/%s",
-			WorkspacesEndpoint, c.workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint, filterId),
+			WorkspacesEndpoint, c.Workspace, SourceEndpoint, srcName, DestinationEndpoint, destinationName, DestinationFiltersEndpoint, filterId),
 		nil)
 
 	return err

@@ -14,7 +14,7 @@ func (c *Client) ListTrackingPlans() (TrackingPlans, error) {
 	var tps TrackingPlans
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint),
 		nil)
 	if err != nil {
 		return tps, err
@@ -32,7 +32,7 @@ func (c *Client) GetTrackingPlan(trackingPlanID string) (TrackingPlan, error) {
 	var tp TrackingPlan
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, trackingPlanID),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, trackingPlanID),
 		nil)
 	if err != nil {
 		return tp, err
@@ -54,7 +54,7 @@ func (c *Client) CreateTrackingPlan(data TrackingPlan) (TrackingPlan, error) {
 	}
 	responseBody, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s/",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint),
 		tpCreateReq)
 
 	if err != nil {
@@ -81,7 +81,7 @@ func (c *Client) UpdateTrackingPlan(trackingPlanID string, data TrackingPlan) (T
 	}
 	responseBody, err := c.doRequest(http.MethodPut,
 		fmt.Sprintf("%s/%s/%s/%s/",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, trackingPlanID),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, trackingPlanID),
 		tpUpdateReq)
 
 	if err != nil {
@@ -100,7 +100,7 @@ func (c *Client) DeleteTrackingPlan(trackingPlanID string) error {
 
 	_, err := c.doRequest(http.MethodDelete,
 		fmt.Sprintf("%s/%s/%s/%s/",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, trackingPlanID),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, trackingPlanID),
 		nil)
 
 	if err != nil {
@@ -115,8 +115,8 @@ func (c *Client) DeleteTrackingPlan(trackingPlanID string) error {
 func (c *Client) CreateTrackingPlanSourceConnection(planId string, sourceName string) error {
 	data, err := c.doRequest(http.MethodPost,
 		fmt.Sprintf("%s/%s/%s/%s/source-connections",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, planId),
-		trackingPlanSourceConnectionCreateRequest{Name: fmt.Sprintf("workspaces/%s/sources/%s", c.workspace, sourceName)})
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, planId),
+		trackingPlanSourceConnectionCreateRequest{Name: fmt.Sprintf("workspaces/%s/sources/%s", c.Workspace, sourceName)})
 	if err != nil {
 		return err
 	}
@@ -135,7 +135,7 @@ func (c *Client) ListTrackingPlanSources(planId string) ([]TrackingPlanSourceCon
 	var connections TrackingPlanSourceConnections
 	data, err := c.doRequest(http.MethodGet,
 		fmt.Sprintf("%s/%s/%s/%s/source-connections",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, planId),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, planId),
 		nil)
 	if err != nil {
 		return nil, err
@@ -153,7 +153,7 @@ func (c *Client) ListTrackingPlanSources(planId string) ([]TrackingPlanSourceCon
 func (c *Client) DeleteTrackingPlanSourceConnection(planId string, sourceName string) error {
 	data, err := c.doRequest(http.MethodDelete,
 		fmt.Sprintf("%s/%s/%s/%s/source-connections/%s",
-			WorkspacesEndpoint, c.workspace, TrackingPlanEndpoint, planId, sourceName),
+			WorkspacesEndpoint, c.Workspace, TrackingPlanEndpoint, planId, sourceName),
 		nil)
 	if err != nil {
 		return err
