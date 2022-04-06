@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/hashicorp/go-retryablehttp"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -24,17 +25,20 @@ type Client struct {
 	apiVersion  string
 	accessToken string
 	Workspace   string
-	client      *http.Client
+	client      *retryablehttp.Client
 }
 
 // NewClient creates a new Segment Config API client.
 func NewClient(accessToken string, workspace string) *Client {
+	c := retryablehttp.NewClient()
+	c.ErrorHandler = retryablehttp.PassthroughErrorHandler
+
 	return &Client{
 		baseURL:     defaultBaseURL,
 		apiVersion:  apiVersion,
 		accessToken: accessToken,
 		Workspace:   workspace,
-		client:      http.DefaultClient,
+		client:      c,
 	}
 }
 
@@ -52,7 +56,7 @@ func (c *Client) doRequest(method, endpoint string, data interface{}) ([]byte, e
 
 	// Create the request.
 	uri := fmt.Sprintf("%s/%s/%s", c.baseURL, c.apiVersion, strings.Trim(endpoint, "/"))
-	req, err := http.NewRequest(method, uri, b)
+	req, err := retryablehttp.NewRequest(method, uri, b)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("creating %s request to %s failed", method, uri))
 	}
