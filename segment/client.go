@@ -15,7 +15,7 @@ import (
 
 const (
 	apiVersion     = "v1beta"
-	defaultBaseURL = "https://platform.segmentapis.com"
+	defaultBaseURL = "https://eu1.api.segmentapis.com"
 	mediaType      = "application/json"
 )
 
